@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "DieLabel.h"
 
-@interface ViewController ()
+@interface ViewController ()<DieLabelDelegate>
+@property (nonatomic,strong) IBOutletCollection(DieLabel) NSArray *dies;
+@property NSMutableArray *dice;
 
 @end
 
@@ -16,12 +19,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)onRollButtonPressed:(id)sender {
+    for (DieLabel *die in self.dies) {
+        [die roll];
+        die.delegate = self;
+    }
+    
 }
 
 @end
